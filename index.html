@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bat-black:#0a0a0f;
+  --bat-dark:#111118;
+  --bat-card:#16161f;
+  --bat-yellow:#f5c518;
+  --bat-gold:#e8a800;
+  --bat-gray:#2a2a35;
+  --bat-muted:#6b6b80;
+  --bat-light:#c8c8d8;
+  --bat-white:#eeeef5;
+  --bat-accent:#7b68ee;
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bat-black);
+  color:var(--bat-white);
+  font-family:'Rajdhani',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+.custom-cursor{
+  width:12px;height:12px;
+  background:var(--bat-yellow);
+  border-radius:50%;
+  position:fixed;z-index:9999;
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s;
+  mix-blend-mode:difference;
+}
+.custom-cursor.big{width:40px;height:40px;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 3rem;
+  background:rgba(10,10,15,.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(245,197,24,.15);
+}
+.nav-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;
+  color:var(--bat-yellow);
+  letter-spacing:4px;
+}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{
+  color:var(--bat-muted);
+  text-decoration:none;
+  font-family:'Space Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  transition:color .3s;
+}
+.nav-links a:hover{color:var(--bat-yellow);}
+.nav-bat{
+  font-size:1.4rem;
+  filter:invert(1) sepia(1) saturate(5) hue-rotate(10deg);
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:6rem 3rem 3rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg-text{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:22vw;
+  color:rgba(245,197,24,.03);
+  white-space:nowrap;
+  pointer-events:none;
+  letter-spacing:10px;
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.03}50%{opacity:.06}}
+.bat-signal{
+  position:absolute;top:-10%;right:5%;
+  width:300px;height:300px;
+  background:radial-gradient(ellipse,rgba(245,197,24,.08) 0%,transparent 70%);
+  border-radius:50%;
+  animation:signal 6s ease-in-out infinite;
+}
+@keyframes signal{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.2);opacity:1}}
+.hero-tag{
+  font-family:'Space Mono',monospace;
+  font-size:.65rem;
+  color:var(--bat-yellow);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:1rem;
+  opacity:.8;
+}
+.hero-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,10vw,9rem);
+  line-height:.9;
+  letter-spacing:2px;
+  margin-bottom:1rem;
+}
+.hero-name span{color:var(--bat-yellow);}
+.hero-title{
+  font-size:1.2rem;
+  color:var(--bat-muted);
+  font-weight:300;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  margin-bottom:2rem;
+}
+.hero-desc{
+  max-width:600px;
+  font-size:1.1rem;
+  line-height:1.8;
+  color:var(--bat-light);
+  margin-bottom:2.5rem;
+  font-weight:300;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+.btn-primary{
+  padding:.8rem 2.5rem;
+  background:var(--bat-yellow);
+  color:var(--bat-black);
+  font-family:'Space Mono',monospace;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border:none;cursor:pointer;
+  text-decoration:none;
+  transition:transform .2s,box-shadow .2s;
+  clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(245,197,24,.4);}
+.btn-secondary{
+  padding:.8rem 2.5rem;
+  background:transparent;
+  color:var(--bat-yellow);
+  font-family:'Space Mono',monospace;
+  font-size:.75rem;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border:1px solid rgba(245,197,24,.4);
+  cursor:pointer;
+  text-decoration:none;
+  transition:border-color .2s,background .2s;
+}
+.btn-secondary:hover{border-color:var(--bat-yellow);background:rgba(245,197,24,.08);}
+.hero-stats{
+  display:flex;gap:3rem;margin-top:3rem;
+  border-top:1px solid rgba(245,197,24,.1);
+  padding-top:2rem;
+}
+.stat-item{}
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.5rem;
+  color:var(--bat-yellow);
+  line-height:1;
+}
+.stat-label{
+  font-size:.7rem;
+  color:var(--bat-muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-family:'Space Mono',monospace;
+}
+
+/* SCROLLING TICKER */
+.ticker{
+  overflow:hidden;
+  background:var(--bat-yellow);
+  padding:.4rem 0;
+  white-space:nowrap;
+}
+.ticker-inner{
+  display:inline-block;
+  animation:ticker 20s linear infinite;
+}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker span{
+  font-family:'Space Mono',monospace;
+  font-size:.65rem;
+  font-weight:700;
+  color:var(--bat-black);
+  letter-spacing:3px;
+  text-transform:uppercase;
+  padding:0 2rem;
+}
+.ticker span::before{content:'◆  ';color:var(--bat-gold);}
+
+/* SECTIONS */
+section{padding:6rem 3rem;}
+.section-tag{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;
+  color:var(--bat-yellow);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  margin-bottom:.5rem;
+  opacity:.7;
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,4rem);
+  line-height:1;
+  letter-spacing:2px;
+  margin-bottom:3rem;
+}
+.section-title span{color:var(--bat-yellow);}
+
+/* EXPERIENCE */
+.exp-grid{display:grid;gap:1.5rem;}
+.exp-card{
+  background:var(--bat-card);
+  border:1px solid rgba(245,197,24,.1);
+  padding:2rem;
+  position:relative;
+  transition:border-color .3s,transform .3s;
+  overflow:hidden;
+}
+.exp-card::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;
+  width:3px;
+  background:var(--bat-yellow);
+  transform:scaleY(0);
+  transition:transform .3s;
+  transform-origin:bottom;
+}
+.exp-card:hover::before{transform:scaleY(1);}
+.exp-card:hover{border-color:rgba(245,197,24,.3);transform:translateX(4px);}
+.exp-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
+.exp-company{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.6rem;
+  color:var(--bat-yellow);
+  letter-spacing:1px;
+}
+.exp-role{
+  font-size:.8rem;
+  color:var(--bat-muted);
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-family:'Space Mono',monospace;
+  margin-bottom:.3rem;
+}
+.exp-date{
+  font-family:'Space Mono',monospace;
+  font-size:.65rem;
+  color:var(--bat-muted);
+  background:rgba(245,197,24,.08);
+  border:1px solid rgba(245,197,24,.2);
+  padding:.3rem .8rem;
+  white-space:nowrap;
+}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.exp-bullets li{
+  font-size:.95rem;
+  color:var(--bat-light);
+  font-weight:300;
+  padding-left:1.2rem;
+  position:relative;
+  line-height:1.6;
+}
+.exp-bullets li::before{
+  content:'→';
+  position:absolute;left:0;
+  color:var(--bat-yellow);
+  font-size:.8rem;
+}
+.exp-tag-row{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+.exp-tag{
+  font-family:'Space Mono',monospace;
+  font-size:.55rem;
+  color:var(--bat-yellow);
+  background:rgba(245,197,24,.08);
+  border:1px solid rgba(245,197,24,.2);
+  padding:.2rem .6rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+/* SKILLS */
+.skills-section{background:var(--bat-dark);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+.skill-card{
+  background:var(--bat-card);
+  border:1px solid rgba(245,197,24,.08);
+  padding:1.5rem;
+  transition:border-color .3s;
+}
+.skill-card:hover{border-color:rgba(245,197,24,.3);}
+.skill-cat{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1rem;
+  letter-spacing:2px;
+  color:var(--bat-yellow);
+  margin-bottom:1rem;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.4rem;}
+.skill-tag{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;
+  padding:.3rem .7rem;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.08);
+  color:var(--bat-light);
+  letter-spacing:1px;
+  transition:all .2s;
+}
+.skill-tag:hover{background:rgba(245,197,24,.1);border-color:rgba(245,197,24,.3);color:var(--bat-yellow);}
+
+/* EDUCATION */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+.edu-card{
+  background:var(--bat-card);
+  border:1px solid rgba(245,197,24,.08);
+  padding:2rem;
+  position:relative;
+  overflow:hidden;
+}
+.edu-card::after{
+  content:'🎓';
+  position:absolute;right:1rem;bottom:1rem;
+  font-size:3rem;opacity:.06;
+}
+.edu-degree{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.4rem;
+  color:var(--bat-yellow);
+  margin-bottom:.3rem;
+}
+.edu-school{font-size:1.1rem;color:var(--bat-light);margin-bottom:.3rem;font-weight:600;}
+.edu-year{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;
+  color:var(--bat-muted);
+  letter-spacing:2px;
+}
+
+/* CONTACT */
+.contact-section{background:var(--bat-dark);text-align:center;}
+.contact-inner{max-width:600px;margin:0 auto;}
+.contact-big{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,8vw,7rem);
+  line-height:.9;
+  letter-spacing:2px;
+  margin-bottom:1rem;
+}
+.contact-big span{color:var(--bat-yellow);}
+.contact-sub{color:var(--bat-muted);font-size:1rem;font-weight:300;margin-bottom:2.5rem;letter-spacing:1px;}
+.contact-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:3rem;}
+.contact-link{
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Space Mono',monospace;
+  font-size:.7rem;
+  color:var(--bat-yellow);
+  text-decoration:none;
+  letter-spacing:1px;
+  border-bottom:1px solid rgba(245,197,24,.3);
+  padding-bottom:.2rem;
+  transition:border-color .2s;
+}
+.contact-link:hover{border-color:var(--bat-yellow);}
+
+/* FOOTER */
+footer{
+  padding:2rem 3rem;
+  border-top:1px solid rgba(245,197,24,.1);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.2rem;color:var(--bat-yellow);letter-spacing:4px;
+}
+.footer-text{
+  font-family:'Space Mono',monospace;
+  font-size:.6rem;color:var(--bat-muted);letter-spacing:2px;
+}
+
+/* FLOATING BAT */
+.floating-bat{
+  position:fixed;bottom:2rem;right:2rem;
+  width:50px;height:50px;
+  background:var(--bat-yellow);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;
+  cursor:pointer;
+  z-index:999;
+  animation:float 3s ease-in-out infinite;
+  box-shadow:0 0 20px rgba(245,197,24,.3);
+  text-decoration:none;
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bat-black);}
+::-webkit-scrollbar-thumb{background:var(--bat-yellow);border-radius:2px;}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem;}
+  .nav-links{display:none;}
+  section{padding:4rem 1.5rem;}
+  .hero{padding:5rem 1.5rem 2rem;}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap;}
+  footer{padding:1.5rem;}
+}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<div class="custom-cursor" id="cursor"></div>
+
+<nav>
+  <div class="nav-logo">NK_</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">XP</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Signal</a></li>
+  </ul>
+  <div class="nav-bat">🦇</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-bg-text">NAMAN</div>
+  <div class="bat-signal"></div>
+
+  <div class="hero-tag reveal">// software_engineer.exe</div>
+  <h1 class="hero-name reveal">NAMAN<br><span>KUMAR</span></h1>
+  <p class="hero-title reveal">SDE-2 · Backend Architect · Gotham's Dev</p>
+  <p class="hero-desc reveal">
+    Not all heroes wear capes. Some build distributed systems at 3am, fix critical infra bugs before the city wakes up, and ship microservices that handle 40K+ clients. That's me — minus the brooding.
+  </p>
+  <div class="hero-btns reveal">
+    <a class="btn-primary" href="#contact">Send the Bat-Signal</a>
+    <a class="btn-secondary" href="#experience">View the Missions</a>
+  </div>
+  <div class="hero-stats reveal">
+    <div class="stat-item">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years in the cave</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">60%</div>
+      <div class="stat-label">AWS cost slashed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">40K+</div>
+      <div class="stat-label">Industrial clients</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">80%</div>
+      <div class="stat-label">Faster onboarding</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>Node.js</span><span>AWS</span><span>Kafka</span><span>Docker</span><span>Kubernetes</span><span>InfluxDB</span><span>Redis</span><span>Python</span><span>Terraform</span><span>OpenTelemetry</span><span>PostgreSQL</span><span>SigNoz</span><span>IoT Core</span><span>Prometheus</span>
+    <span>Node.js</span><span>AWS</span><span>Kafka</span><span>Docker</span><span>Kubernetes</span><span>InfluxDB</span><span>Redis</span><span>Python</span><span>Terraform</span><span>OpenTelemetry</span><span>PostgreSQL</span><span>SigNoz</span><span>IoT Core</span><span>Prometheus</span>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">// missions_log</div>
+  <h2 class="section-title reveal">THE <span>MISSIONS</span></h2>
+
+  <div class="exp-grid">
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">SDE-2 · Gurgaon</div>
+          <div class="exp-company">Nitro Commerce</div>
+        </div>
+        <div class="exp-date">Jan 2026 – Mar 2026</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Led a 4-engineer squad to architect high-reliability web scrapers targeting Blinkit, Instamart & Zepto at scale</li>
+        <li>Designed resilient scraping infra to extract large-scale public catalogue data for D2C brand benchmarking</li>
+        <li>Levelled up scraper reliability via robust error handling, rate-limit management & distributed job scheduling</li>
+      </ul>
+      <div class="exp-tag-row">
+        <span class="exp-tag">Web Scraping</span>
+        <span class="exp-tag">Distributed Systems</span>
+        <span class="exp-tag">Quick Commerce</span>
+      </div>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Software Engineer · Delhi</div>
+          <div class="exp-company">Smart Joules</div>
+        </div>
+        <div class="exp-date">Feb 2022 – Dec 2025</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Conducted VAPT across core backend services — found & crushed critical vulnerabilities fr fr 🔒</li>
+        <li>Integrated SigNoz + OpenTelemetry for full-stack APM and real-time observability. no cap, it slaps.</li>
+        <li>Migrated time-series APIs from DynamoDB → InfluxDB, cutting AWS infra costs by 60% 💸</li>
+        <li>Architected end-to-end energy monitoring microservices for JouleOne (Tata Power) serving 40K+ industrial clients</li>
+        <li>Built Sankey-based energy wastage detection contributing to real enterprise cost savings</li>
+        <li>Re-engineered AWS IoT Core ingestion pipeline for high-volume data with better batch throughput</li>
+        <li>Implemented large-scale IoT device sync using Node.js, AWS IoT Core & Redis distributed locks</li>
+        <li>Built IBMS backend + configurator tool with drag-and-drop dashboards — slashed site onboarding time by 80% 🚀</li>
+      </ul>
+      <div class="exp-tag-row">
+        <span class="exp-tag">Node.js</span>
+        <span class="exp-tag">AWS IoT Core</span>
+        <span class="exp-tag">InfluxDB</span>
+        <span class="exp-tag">Redis</span>
+        <span class="exp-tag">Microservices</span>
+        <span class="exp-tag">OpenTelemetry</span>
+        <span class="exp-tag">VAPT</span>
+      </div>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-header">
+        <div>
+          <div class="exp-role">Backend Developer · Gurgaon</div>
+          <div class="exp-company">TrulyMadly</div>
+        </div>
+        <div class="exp-date">Sep 2021 – Feb 2022</div>
+      </div>
+      <ul class="exp-bullets">
+        <li>Built scalable backend for a social platform connecting millions of users with high availability under peak traffic</li>
+        <li>Shipped real-time video calling, instant messaging & robust logging for low-latency comms</li>
+      </ul>
+      <div class="exp-tag-row">
+        <span class="exp-tag">Real-time Systems</span>
+        <span class="exp-tag">Video Calling</span>
+        <span class="exp-tag">High Availability</span>
+        <span class="exp-tag">Dyte</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-tag">// gadget_belt</div>
+  <h2 class="section-title reveal">THE <span>ARSENAL</span></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">⚡ Languages & Runtime</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Node.js</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Java</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">🕸️ Web Frameworks</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Sails.js</span>
+        <span class="skill-tag">Express.js</span>
+        <span class="skill-tag">ReactJS</span>
+        <span class="skill-tag">Redux</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">☁️ Cloud & DevOps</div>
+      <div class="skill-tags">
+        <span class="skill-tag">AWS EC2</span>
+        <span class="skill-tag">S3</span>
+        <span class="skill-tag">Lambda</span>
+        <span class="skill-tag">IoT Core</span>
+        <span class="skill-tag">Docker</span>
+        <span class="skill-tag">Kubernetes</span>
+        <span class="skill-tag">Terraform</span>
+        <span class="skill-tag">CI/CD</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">🗄️ Databases</div>
+      <div class="skill-tags">
+        <span class="skill-tag">PostgreSQL</span>
+        <span class="skill-tag">DynamoDB</span>
+        <span class="skill-tag">InfluxDB</span>
+        <span class="skill-tag">Redis</span>
+        <span class="skill-tag">ORM</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">📡 Messaging Queue</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Kafka</span>
+        <span class="skill-tag">RabbitMQ</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">🔭 Observability</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Prometheus</span>
+        <span class="skill-tag">Grafana</span>
+        <span class="skill-tag">SigNoz</span>
+        <span class="skill-tag">OpenTelemetry</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">🧠 Core Concepts</div>
+      <div class="skill-tags">
+        <span class="skill-tag">DSA</span>
+        <span class="skill-tag">OOP</span>
+        <span class="skill-tag">System Design</span>
+        <span class="skill-tag">Design Patterns</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-cat">🛠️ Other Tools</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">Twilio</span>
+        <span class="skill-tag">JWT</span>
+        <span class="skill-tag">REST API</span>
+        <span class="skill-tag">N8N</span>
+        <span class="skill-tag">Agile</span>
+        <span class="skill-tag">VAPT</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-tag">// training_logs</div>
+  <h2 class="section-title reveal">THE <span>TRAINING</span></h2>
+  <div class="edu-grid">
+
+    <div class="edu-card reveal">
+      <div class="edu-degree">Cloud Computing</div>
+      <div class="edu-school">IIT Roorkee iHub – Intelipaat</div>
+      <div class="edu-year">2025 · Delhi</div>
+    </div>
+
+    <div class="edu-card reveal">
+      <div class="edu-degree">BSc Physical Science</div>
+      <div class="edu-school">Delhi University</div>
+      <div class="edu-year">2017 – 2020 · Delhi · with Computer Science</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-tag">// open_to_work</div>
+    <h2 class="contact-big reveal">SEND THE<br><span>BAT-SIGNAL</span></h2>
+    <p class="contact-sub reveal">Hit me up. No cap, I respond fast.</p>
+    <div class="contact-links reveal">
+      <a href="mailto:namankr851@gmail.com" class="contact-link">📧 namankr851@gmail.com</a>
+      <a href="tel:+918510887827" class="contact-link">📱 +91 85108 87827</a>
+      <a href="https://www.linkedin.com/in/naman-kumar-96a0b419a" class="contact-link" target="_blank">🔗 LinkedIn</a>
+    </div>
+    <a class="btn-primary reveal" href="mailto:namankr851@gmail.com">Let's Build Something 🦇</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">NK_</div>
+  <div class="footer-text">NAMAN KUMAR · BACKEND ARCHITECT · DELHI · 2026</div>
+  <div class="footer-text">Built different. No cap.</div>
+</footer>
+
+<a href="#about" class="floating-bat" title="Back to top">🦇</a>
+
+<script>
+const cursor = document.getElementById('cursor');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,.exp-card,.skill-card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
